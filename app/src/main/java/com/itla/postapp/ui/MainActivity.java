@@ -9,6 +9,8 @@ import android.widget.Toast;
 import com.itla.postapp.R;
 import com.itla.postapp.model.LoginCredentials;
 import com.itla.postapp.model.user.LoginResponse;
+import com.itla.postapp.preference.Preference;
+import com.itla.postapp.preference.TokenPreference;
 import com.itla.postapp.webservice.LoginClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,13 +43,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void login(){
+
+        Preference<String> preference = new TokenPreference(this);
+
         Call<LoginResponse> call = loginClient.getCall();
 
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.isSuccessful()){
+                    preference.write(response.body().getToken());
                     tokenText.setText(response.body().getToken());
+                    Toast.makeText(getBaseContext(),
+                            "token: " + preference.read(), Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getBaseContext(), "Inicio de sesión incorrecto :(",
                             Toast.LENGTH_SHORT).show();
