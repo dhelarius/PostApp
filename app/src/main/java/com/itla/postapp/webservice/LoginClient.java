@@ -28,9 +28,9 @@ public class LoginClient {
                 .createService(LoginService.class);
     }
 
-    public LiveData<Boolean> login(){
+    public LiveData<LoginResponse> login(){
         Preference<String> tokenPreference = new TokenPreference(activity);
-        MutableLiveData<Boolean> data = new MutableLiveData<>();
+        MutableLiveData<LoginResponse> data = new MutableLiveData<>();
         Call<LoginResponse> call = service.login(credentials);
 
         call.enqueue(new Callback<LoginResponse>() {
@@ -39,17 +39,16 @@ public class LoginClient {
                 if(response.isSuccessful()) {
                     String token = response.body().getToken();
                     tokenPreference.write(token);
-                    data.setValue(true);
+                    data.setValue(response.body());
+                    Log.i(TAG, "token: " + token);
                 }else{
                     Log.i(TAG, "Inicio de sesión incorrecto :(");
-                    data.setValue(false);
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                     Log.i(TAG, "Solicitud de inicio de sesión fallida :(");
-                    data.setValue(false);
             }
         });
 

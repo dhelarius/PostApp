@@ -12,10 +12,13 @@ public class ServiceGenerator {
     private static ServiceGenerator INSTANCE;
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
-    private static Retrofit.Builder builder =
-            new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create());
+    private static Retrofit.Builder builder;
+
+    private ServiceGenerator(){
+        builder = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create());
+    }
 
     public static synchronized ServiceGenerator getInstance(){
         if(INSTANCE == null){
