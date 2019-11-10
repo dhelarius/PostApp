@@ -18,8 +18,12 @@ public class LoginViewModel extends ViewModel {
     }
 
     public LiveData<LoginResponse> login(){
-        loggedIn.setValue(true);
-        return loginClient.login();
+        if(loginClient.login() != null) {
+            loggedIn.setValue(true);
+            return loginClient.login();
+        }
+
+        return null;
     }
 
     public LiveData<Boolean> isLoggedIn(){

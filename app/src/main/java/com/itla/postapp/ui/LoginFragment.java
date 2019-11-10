@@ -5,10 +5,10 @@ import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import com.itla.postapp.R;
 import com.itla.postapp.databinding.FragmentLoginBinding;
 import com.itla.postapp.model.LoginCredentials;
@@ -20,6 +20,8 @@ import com.itla.postapp.ui.viewmodel.LoginViewModelFactory;
  */
 public class LoginFragment extends Fragment {
 
+    private View view;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -30,6 +32,8 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         FragmentLoginBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_login, container, false);
+
+        view = binding.getRoot();
 
         binding.setLifecycleOwner(this);
 
@@ -43,16 +47,16 @@ public class LoginFragment extends Fragment {
 
         viewModel.isLoggedIn().observe(this, isLogged -> {
             if(isLogged){
-                updateUI();
+                navigateToPostsFragment();
                 viewModel.hasBeenLogged();
             }
         });
 
-        return binding.getRoot();
+        return view;
     }
 
-    private void updateUI() {
-        Toast.makeText(getContext(), "Se ha logueado", Toast.LENGTH_SHORT).show();
+    private void navigateToPostsFragment() {
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_postsFragment);
     }
 
 }
