@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 import com.itla.postapp.R;
 import com.itla.postapp.databinding.FragmentLoginBinding;
@@ -37,14 +38,14 @@ public class LoginFragment extends Fragment {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_login, container, false);
 
+        EditText editEmail = binding.editEmail;
+        EditText editPassword = binding.editPassword;
+
         view = binding.getRoot();
 
         binding.setLifecycleOwner(this);
 
-        LoginCredentials credentials =
-                new LoginCredentials("djimenez@itla.com","aj1471992");
-
-        LoginViewModelFactory viewModelFactory = new LoginViewModelFactory(getActivity(), credentials);
+        LoginViewModelFactory viewModelFactory = new LoginViewModelFactory(getActivity());
         LoginViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
 
         binding.setLoginViewModel(viewModel);
@@ -52,6 +53,12 @@ public class LoginFragment extends Fragment {
         viewModel.isLogginIn().observe(this, isLogginIn -> {
                 if (isLogginIn) {
                     showProgressBar();
+
+                    String email = editEmail.getText().toString();
+                    String password = editPassword.getText().toString();
+
+                    LoginCredentials credentials = new LoginCredentials(email, password);
+                    viewModel.setLoginCredentials(credentials);
                 } else {
                     showLoginButton();
                 }

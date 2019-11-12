@@ -30,10 +30,13 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<Boolean> loginStatus = new MutableLiveData<>();
     private MutableLiveData<Boolean> error = new MutableLiveData<>();
 
-    LoginViewModel(Activity activity, LoginCredentials credentials){
-        this.credentials = credentials;
+    LoginViewModel(Activity activity){
         tokenPreference = new TokenPreference(activity);
         loginClient = ClientFactory.getWebClientService(WebClient.LOGIN_CLIENT);
+    }
+
+    public void setLoginCredentials(LoginCredentials credentials){
+        this.credentials = credentials;
     }
 
     public void login(){
