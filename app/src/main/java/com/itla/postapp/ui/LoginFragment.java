@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import com.itla.postapp.R;
 import com.itla.postapp.databinding.FragmentLoginBinding;
 import com.itla.postapp.model.LoginCredentials;
@@ -20,7 +21,10 @@ import com.itla.postapp.ui.viewmodel.LoginViewModelFactory;
  */
 public class LoginFragment extends Fragment {
 
+    private static final String TAG = LoginFragment.class.getSimpleName();
+
     private View view;
+    private FragmentLoginBinding binding;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -30,7 +34,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        FragmentLoginBinding binding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_login, container, false);
 
         view = binding.getRoot();
@@ -45,10 +49,35 @@ public class LoginFragment extends Fragment {
 
         binding.setLoginViewModel(viewModel);
 
-        viewModel.isLoggedIn().observe(this, isLogged -> {
-            if(isLogged){
+        viewModel.isLogginIn().observe(this, isLogginIn -> {
+                if (isLogginIn) {
+                    showProgressBar();
+                } else {
+                    showLoginButton();
+                }
+        });
+
+        viewModel.isLogged().observe(this, isLogged -> {
+            if (isLogged) {
                 navigateToPostsFragment();
+                viewModel.hasBeenLogginIn();
                 viewModel.hasBeenLogged();
+            }
+        });
+
+        viewModel.inError().observe(this, isError -> {
+            if(isError){
+                Toast.makeText(getContext(), "Solicitud de inicio de sesión fallida!", Toast.LENGTH_SHORT).show();
+                viewModel.anErrorHasOcurred();
+                viewModel.hasBeenLogginIn();
+            }
+        });
+
+        viewModel.getLoginStatus().observe(this, loginIsIncorrect -> {
+            if(loginIsIncorrect){
+                Toast.makeText(getContext(), "Inicio de sesión incorrecto!", Toast.LENGTH_SHORT).show();
+                viewModel.thereWasAIncorrectLogin();
+                viewModel.hasBeenLogginIn();
             }
         });
 
@@ -59,4 +88,13 @@ public class LoginFragment extends Fragment {
         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_postsFragment);
     }
 
+    private void showProgressBar() {
+        binding.setLoginButtonVisible(View.INVISIBLE);
+        binding.setProgressBarVisible(View.VISIBLE);
+    }
+
+    private void showLoginButton() {
+        binding.setLoginButtonVisible(View.VISIBLE);
+        binding.setProgressBarVisible(View.INVISIBLE);
+    }
 }
