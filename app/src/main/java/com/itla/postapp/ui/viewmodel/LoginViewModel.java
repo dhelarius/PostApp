@@ -27,7 +27,7 @@ public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> logginIn = new MutableLiveData<>();
     private MutableLiveData<Boolean> logged = new MutableLiveData<>();
-    private MutableLiveData<Boolean> loginStatus = new MutableLiveData<>();
+    private MutableLiveData<Boolean> incorrectLogin = new MutableLiveData<>();
     private MutableLiveData<Boolean> error = new MutableLiveData<>();
 
     LoginViewModel(Activity activity){
@@ -53,10 +53,22 @@ public class LoginViewModel extends ViewModel {
                 if(response.isSuccessful()){
                     String token = response.body().getToken();
                     tokenPreference.write(token);
-                    logged.setValue(true);
+
+                    /**
+                     * el inicio de sesion es valido para email y password vacios, la declaración if debajo
+                     * es para controlar el que no inicie sesión con esas credenciales
+                     */
+                    if(credentials.getEmail().isEmpty() || credentials.getPassword().isEmpty()){
+                        hasBeenLogged();
+                        hasBeenLogginIn();
+                        incorrectLogin.setValue(true);
+                    }else{
+                        logged.setValue(true); // unica linea necesaria, OJO
+                    }
+
                     Log.i(TAG, "token: " + token);
                 }else{
-                    loginStatus.setValue(true);
+                    incorrectLogin.setValue(true);
                     Log.i(TAG, "Inicio de sesión incorrecto :(");
                 }
             }
@@ -74,7 +86,8 @@ public class LoginViewModel extends ViewModel {
     public void hasBeenLogginIn(){ logginIn.setValue(false); }
 
 
-    public LiveData<Boolean> isLogged(){ return logged; }
+    public LiveData<Boolean> isLogged(){
+        return logged; }
 
     public void hasBeenLogged(){ logged.setValue(false); }
 
@@ -84,7 +97,7 @@ public class LoginViewModel extends ViewModel {
     public void anErrorHasOcurred(){ error.setValue(false); }
 
 
-    public LiveData<Boolean> getLoginStatus(){ return loginStatus; }
+    public LiveData<Boolean> isLoginIncorrect(){ return incorrectLogin; }
 
-    public void thereWasAIncorrectLogin(){ loginStatus.setValue(false); }
+    public void thereWasAIncorrectLogin(){ incorrectLogin.setValue(false); }
 }

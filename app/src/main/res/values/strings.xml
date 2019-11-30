@@ -2,7 +2,6 @@
     <string name="app_name">BlogApp</string>
 
     <string name="saved_token">com.itla.postapp.PREFERENCE_FILE_TOKEN</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    
     <string name="welcome">Hello to PostApp</string>
 </resources>

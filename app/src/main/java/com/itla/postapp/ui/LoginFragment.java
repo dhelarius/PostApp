@@ -80,7 +80,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        viewModel.getLoginStatus().observe(this, loginIsIncorrect -> {
+        viewModel.isLoginIncorrect().observe(this, loginIsIncorrect -> {
             if(loginIsIncorrect){
                 Toast.makeText(getContext(), "Inicio de sesión incorrecto!", Toast.LENGTH_SHORT).show();
                 viewModel.thereWasAIncorrectLogin();

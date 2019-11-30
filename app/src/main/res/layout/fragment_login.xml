@@ -15,11 +15,15 @@
             type="Integer" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.LoginFragment"
         android:background="@color/colorWhite">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/loginButton"
@@ -97,4 +101,5 @@ b
             app:layout_constraintTop_toTopOf="@+id/loginButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
