@@ -13,10 +13,19 @@ public class TokenPreference implements Preference<String> {
     private SharedPreferences.Editor editor;
     private Activity activity;
 
-    public TokenPreference(Activity activity){
+    private static TokenPreference INSTANCE;
+
+    private TokenPreference(Activity activity){
         this.activity = activity;
         sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
         editor = sharedPref.edit();
+    }
+
+    public static TokenPreference getInstance(Activity activity){
+        if(INSTANCE == null){
+            INSTANCE = new TokenPreference(activity);
+        }
+        return INSTANCE;
     }
 
     @Override

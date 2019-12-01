@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.itla.postapp.R;
 import com.itla.postapp.databinding.FragmentSplashScreenBinding;
+import com.itla.postapp.preference.TokenPreference;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +36,9 @@ public class SplashScreenFragment extends Fragment {
 
         view = binding.getRoot();
 
+        TokenPreference tokenPreference = TokenPreference.getInstance(Objects.requireNonNull(getActivity()));
+        String token = tokenPreference.read();
+
         new Thread(() -> {
             try {
                 Thread.sleep(MILLISECONDS);
@@ -40,7 +46,12 @@ public class SplashScreenFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            navigateToLoginFragment();
+            if(!token.isEmpty()){
+                navigateToPostsFragment();
+            }else{
+                navigateToLoginFragment();
+            }
+
         }).start();
 
         return view;
@@ -48,6 +59,10 @@ public class SplashScreenFragment extends Fragment {
 
     private void navigateToLoginFragment() {
         Navigation.findNavController(view).navigate(R.id.action_splashScreenFragment_to_loginFragment);
+    }
+
+    private void navigateToPostsFragment(){
+        Navigation.findNavController(view).navigate(R.id.action_splashScreenFragment_to_postsFragment);
     }
 
 }
