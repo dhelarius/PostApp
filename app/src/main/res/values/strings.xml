@@ -2,7 +2,9 @@
     <string name="app_name">BlogApp</string>
 
     <string name="saved_token">com.itla.postapp.PREFERENCE_FILE_TOKEN</string>
-    
-    <string name="welcome">Hello to PostApp</string>
+
     <string name="logout">Cerrar sesión</string>
+    <string name="posts">Posts</string>
+    <string name="profile">Perfil</string>
+    <string name="users">Usuarios</string>
 </resources>
