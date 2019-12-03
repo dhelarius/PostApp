@@ -1,6 +1,5 @@
 package com.itla.postapp.ui;
 
-
 import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import com.itla.postapp.R;
 import com.itla.postapp.databinding.FragmentSplashScreenBinding;
 import com.itla.postapp.preference.TokenPreference;
-
 import java.util.Objects;
 
 /**
@@ -46,11 +44,13 @@ public class SplashScreenFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            if(!token.isEmpty()){
-                navigateToPostsFragment();
-            }else{
-                navigateToLoginFragment();
-            }
+            getActivity().runOnUiThread(() -> {
+                if(!token.isEmpty()){
+                    navigateToPostsFragment();
+                }else{
+                    navigateToLoginFragment();
+                }
+            });
 
         }).start();
 

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.itla.postapp.R;
 import com.itla.postapp.databinding.FragmentLoginBinding;
 import com.itla.postapp.model.LoginCredentials;
+import com.itla.postapp.preference.TokenPreference;
 import com.itla.postapp.ui.viewmodel.LoginViewModel;
 import com.itla.postapp.ui.viewmodel.LoginViewModelFactory;
 
@@ -38,10 +39,12 @@ public class LoginFragment extends Fragment {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_login, container, false);
 
+        view = binding.getRoot();
+
+        cleanToken();
+
         EditText editEmail = binding.editEmail;
         EditText editPassword = binding.editPassword;
-
-        view = binding.getRoot();
 
         binding.setLifecycleOwner(this);
 
@@ -103,5 +106,9 @@ public class LoginFragment extends Fragment {
     private void showLoginButton() {
         binding.setLoginButtonVisible(View.VISIBLE);
         binding.setProgressBarVisible(View.INVISIBLE);
+    }
+
+    private void cleanToken(){
+        TokenPreference.getInstance(getActivity()).write("");
     }
 }
