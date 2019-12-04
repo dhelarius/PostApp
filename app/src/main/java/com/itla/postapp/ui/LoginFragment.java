@@ -91,11 +91,19 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        binding.logupButton.setOnClickListener(v -> {
+            navigateToLogupFragment();
+        });
+
         return view;
     }
 
     private void navigateToPostsFragment() {
         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_postsFragment);
+    }
+
+    private void navigateToLogupFragment(){
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_logupFragment);
     }
 
     private void showProgressBar() {

@@ -15,6 +15,9 @@
             app:destination="@id/postsFragment"
             app:popUpTo="@+id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_logupFragment"
+            app:destination="@id/logupFragment" />
     </fragment>
     <fragment
         android:id="@+id/postsFragment"
@@ -53,4 +56,9 @@
         android:name="com.itla.postapp.ui.usersFragment"
         android:label="fragment_users"
         tools:layout="@layout/fragment_users" />
+    <fragment
+        android:id="@+id/logupFragment"
+        android:name="com.itla.postapp.ui.LogupFragment"
+        android:label="fragment_logup"
+        tools:layout="@layout/fragment_logup" />
 </navigation>

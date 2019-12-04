@@ -54,17 +54,7 @@ public class LoginViewModel extends ViewModel {
                     String token = response.body().getToken();
                     tokenPreference.write(token);
 
-                    /**
-                     * el inicio de sesion es valido para email y password vacios, la declaración if debajo
-                     * es para controlar el que no inicie sesión con esas credenciales
-                     */
-                    if(credentials.getEmail().isEmpty() || credentials.getPassword().isEmpty()){
-                        hasBeenLogged();
-                        hasBeenLogginIn();
-                        incorrectLogin.setValue(true);
-                    }else{
-                        logged.setValue(true); // unica linea necesaria, OJO
-                    }
+                    logged.setValue(true);
 
                     Log.i(TAG, "token: " + token);
                 }else{
