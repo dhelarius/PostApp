@@ -3,6 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="logupViewModel"
+            type="com.itla.postapp.ui.viewmodel.LogupViewModel" />
+        <variable
+            name="progressBarVisible"
+            type="Integer" />
+        <variable
+            name="logupButtonVisible"
+            type="Integer" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,6 +34,8 @@
                 android:layout_marginEnd="100dp"
                 android:background="@drawable/button_style"
                 android:text="REGISTRARSE"
+                android:onClick="@{() -> logupViewModel.logup()}"
+                android:visibility="@{logupButtonVisible}"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -94,6 +108,7 @@
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="@{progressBarVisible}"
                 app:layout_constraintBottom_toBottomOf="@+id/logupButton"
                 app:layout_constraintEnd_toEndOf="@+id/logupButton"
                 app:layout_constraintStart_toStartOf="@+id/logupButton"

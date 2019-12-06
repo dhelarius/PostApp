@@ -32,7 +32,7 @@ public class LoginViewModel extends ViewModel {
 
     LoginViewModel(Activity activity){
         tokenPreference = TokenPreference.getInstance(activity);
-        loginClient = ClientFactory.getWebClientService(WebClient.LOGIN_CLIENT);
+        loginClient = ClientFactory.getWebClientService(WebClient.LOGIN_CLIENT, null);
     }
 
     public void setLoginCredentials(LoginCredentials credentials){
