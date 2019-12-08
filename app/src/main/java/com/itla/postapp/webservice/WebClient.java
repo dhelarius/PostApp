@@ -1,5 +1,7 @@
 package com.itla.postapp.webservice;
 
 public enum WebClient {
-    LOGIN_CLIENT, LOGUP_CLIENT
+    LOGIN_CLIENT,
+    LOGUP_CLIENT,
+    POST_CLIENT
 }
