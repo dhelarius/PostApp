@@ -6,14 +6,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"/>
-
         <fragment
         android:id="@+id/navHostragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
@@ -24,8 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:background="@color/colorWhite"
             app:labelVisibilityMode="selected"
             app:menu="@menu/menu_buttom_nav" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -14,6 +14,7 @@ public class Post {
     private String userId;
     private String userName;
     private int views;
+    private boolean expanded;
 
     public String getBody() {
         return body;
@@ -109,6 +110,14 @@ public class Post {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 
 }
