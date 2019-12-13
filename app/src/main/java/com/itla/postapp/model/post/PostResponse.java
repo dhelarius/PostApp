@@ -1,26 +1,17 @@
 package com.itla.postapp.model.post;
 
-public class Post {
+public class PostResponse {
 
     private String body;
     private int comments;
     private int createAt;
     private int id;
-    private Boolean liked;
+    private boolean liked;
     private int likes;
     private String[] tags;
     private String title;
-    private String userEmail;
-    private String userId;
-    private String userName;
+    private int userId;
     private int views;
-    private boolean expanded;
-
-    public Post(String body, String[] tags, String title) {
-        this.body = body;
-        this.tags = tags;
-        this.title = title;
-    }
 
     public String getBody() {
         return body;
@@ -54,11 +45,11 @@ public class Post {
         this.id = id;
     }
 
-    public Boolean getLiked() {
+    public boolean isLiked() {
         return liked;
     }
 
-    public void setLiked(Boolean liked) {
+    public void setLiked(boolean liked) {
         this.liked = liked;
     }
 
@@ -86,28 +77,12 @@ public class Post {
         this.title = title;
     }
 
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public int getViews() {
@@ -117,13 +92,4 @@ public class Post {
     public void setViews(int views) {
         this.views = views;
     }
-
-    public boolean isExpanded() {
-        return expanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
-    }
-
 }

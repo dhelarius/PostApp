@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/postsFragment"
-        android:name="com.itla.postapp.ui.PostListFragment"
+        android:name="com.itla.postapp.ui.PostFragment"
         android:label="fragment_posts"
         tools:layout="@layout/fragment_posts" >
         <action

@@ -49,6 +49,10 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostLi
             updateBody(position, item);
         });
 
+        holder.comments.setOnClickListener(v -> {
+            Log.i(TAG, "click in comments");
+        });
+
         holder.likes.setOnClickListener(v -> {
             Log.i(TAG, "click in likes");
         });
