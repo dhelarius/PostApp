@@ -1,5 +1,6 @@
 package com.itla.postapp.ui;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -7,7 +8,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -63,14 +63,6 @@ public class PostFragment extends Fragment {
         setHasOptionsMenu(true);
 
         view = binding.getRoot();
-
-        View dialogPublish = LayoutInflater.from(getContext()).inflate(R.layout.dialog_publish, null);
-
-        editTitlePost = dialogPublish.findViewById(R.id.editTitlePost);
-
-        editContentPost = dialogPublish.findViewById(R.id.editContentPost);
-
-        editTagsPost = dialogPublish.findViewById(R.id.editTagsPost);
 
         binding.setLifecycleOwner(this);
 
@@ -159,18 +151,24 @@ public class PostFragment extends Fragment {
         int id = item.getItemId();
 
         switch (id){
-            case R.id.addPost: showPublishDialog();
+            case R.id.addPost: showPublishDialog().show();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void showPublishDialog(){
+    private Dialog showPublishDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        builder.setView(inflater.inflate(R.layout.dialog_publish, null))
+        View dialogPublish = inflater.inflate(R.layout.dialog_publish, null);
+
+        editTitlePost = dialogPublish.findViewById(R.id.editTitlePost);
+        editContentPost = dialogPublish.findViewById(R.id.editContentPost);
+        editTagsPost = dialogPublish.findViewById(R.id.editTagsPost);
+
+        builder.setView(dialogPublish)
                 .setPositiveButton("PUBLICAR", (dialog, id) -> {
 
                     viewModel.publish().observe(this, post -> {
@@ -187,6 +185,6 @@ public class PostFragment extends Fragment {
                 })
                 .setCancelable(false);
 
-        builder.create().show();
+        return builder.create();
     }
 }

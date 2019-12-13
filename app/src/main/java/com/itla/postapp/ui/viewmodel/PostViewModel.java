@@ -65,18 +65,6 @@ public class PostViewModel extends ViewModel {
 
         PostService service = postClient.getService();
 
-        /*Post post1 = new Post();
-
-        String title = "Segundo post";
-        String body = "Otro post desde la app";
-        String stringTags = "prueba,segundo post";
-
-        String[] tags = stringTags.split(",");
-
-        post1.setTitle(title);
-        post1.setBody(body);
-        post1.setTags(tags);*/
-
         Call<PostResponse> call = service.publish(post);
 
         call.enqueue(new Callback<PostResponse>() {
